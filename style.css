@@ -12,24 +12,35 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(140, 149, 156);
+    background-color: rgb(26, 62, 90);
 }
 
 #game-header {
-    width: 50%
+    width: 50%;
+    color: aliceblue;
 }
 
 #header-text {
-    width: 80%;
+    width: 75%;
     margin: auto;
+    display: flex;
+    justify-content: center;
 }
 
 #play-btn {
     width: 100px;
     margin: auto;
     padding: 0.5em;
-    border: 1px solid black;
+    border: 2px solid rgb(218, 218, 218);
     border-radius: 1em;
+    background-color: rgb(26, 62, 90);
+    color: aliceblue;
+}
+
+#play-btn:hover {
+    color: black;
+    background-color: aliceblue;
+    border: 2px solid aliceblue;
 }
 
 #game-container {
