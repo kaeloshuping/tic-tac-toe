@@ -18,17 +18,40 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     let optionBox = document.querySelectorAll(".option-box");
+    let playBtn = document.getElementById("play-btn");
+    let form = document.querySelector("form");
+    let playerOneOption = "";
+    let playerTwoOption = "";
+    let playerOneTurn = "";
+    playBtn.addEventListener("click", () => {
+        let playersNodeList = document.querySelectorAll(".players");
+        players = players(playersNodeList);
+        playerOneOption = players.playersOptions[0];
+        playerTwoOption = players.playersOptions[1];
+        playerOneTurn = true;
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
+    })
     optionBox.forEach((div) => {
         div.addEventListener("click", () => {
-            if (div.innerHTML === "X") {
+            if (div.innerHTML === playerOneOption || div.innerHTML === playerTwoOption) {
                 console.log("Error, this box has already been clicked");
+            } 
+            else if (playerOneTurn === true) {
+                div.innerHTML = playerOneOption;
+                playerOneTurn = false;
             } else {
-                div.innerHTML = "X";
+                div.innerHTML = playerTwoOption;
+                playerOneTurn = true;
             };            
         });
     });
 })();
 
-// const personFactory = (playerNumber, playerOption) {
-
-// }
+function players (playersArray) {
+    let player1 = playersArray[0].value;
+    let player2 = playersArray[1].value;
+    let playersOptions = ["X", "O"];
+    return { player1, player2, playersOptions };
+};
