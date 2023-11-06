@@ -27,6 +27,11 @@ const displayController = (() => {
         row1: [],
         row2: [],
         row3: [],
+        column1: [],
+        column2: [],
+        column3: [],
+        diagonalMain: [],
+        diagonalSec: [],
     };
     playBtn.addEventListener("click", () => {
         let playersNodeList = document.querySelectorAll(".players");
@@ -68,14 +73,80 @@ function players (playersArray) {
 function checkBoard (playerChoices, boxId, userOption) {
     // playerChoices["row" + boxId].splice(boxId - 1, 0, userOption);
     if (boxId === "1" || boxId === "2" || boxId === "3") {
-        playerChoices.row1.splice(boxId - 1, 0, userOption);
-        console.log("Row 1 = " + playerChoices.row1.join(""));
+        if (boxId === "1") {
+            playerChoices.column1.splice(boxId - 1, 0, userOption);
+            playerChoices.row1.splice(boxId - 1, 0, userOption);
+            playerChoices.diagonalMain.splice(boxId - 1, 0, userOption);
+            console.log("Row 1 = " + playerChoices.row1.join(""));
+            console.log("Column 1 = " + playerChoices.column1.join(""));
+            console.log("Diagonal Main = " + playerChoices.diagonalMain.join(""));
+        }
+        else if (boxId === "2") {
+            playerChoices.column2.splice(boxId - 2, 0, userOption);
+            playerChoices.row1.splice(boxId - 1, 0, userOption);
+            console.log("Row 1 = " + playerChoices.row1.join(""));
+            console.log("Column 2 = " + playerChoices.column2.join(""));
+        }
+        else {
+            playerChoices.row1.splice(boxId - 1, 0, userOption);
+            playerChoices.column3.splice(boxId - 3, 0, userOption);
+            playerChoices.diagonalSec.splice(boxId - 3, 0, userOption);
+            console.log("Row 1 = " + playerChoices.row1.join(""));
+            console.log("Column 3 = " + playerChoices.column3.join(""));
+            console.log("Diagonal Sec = " + playerChoices.diagonalSec.join(""));
+        };
     }
     else if (boxId === "4" || boxId === "5" || boxId === "6") {
-        playerChoices.row2.splice(boxId - 4, 0, userOption);
-        console.log("Row 2 = " + playerChoices.row2.join(""));
+        if (boxId === "4") {
+            playerChoices.column1.splice(boxId - 3, 0, userOption);
+            playerChoices.row2.splice(boxId - 4, 0, userOption);
+            console.log("Column 1 = " + playerChoices.column1.join(""));
+            console.log("Row 2 = " + playerChoices.row2.join(""));
+        } else if (boxId === "5") {
+            playerChoices.column2.splice(boxId - 4, 0, userOption);
+            playerChoices.row2.splice(boxId - 4, 0, userOption);
+            if (playerChoices.diagonalMain.length < 3 || playerChoices.diagonalSec.length < 3) {
+                console.log("changing order");
+                playerChoices.diagonalMain.splice(boxId - 5, 0, userOption);
+                playerChoices.diagonalSec.splice(boxId - 5, 0, userOption);
+            } else {
+                playerChoices.diagonalMain.splice(boxId - 4, 0, userOption);
+                playerChoices.diagonalSec.splice(boxId - 4, 0, userOption);
+            }
+            console.log("Row 2 = " + playerChoices.row2.join(""));
+            console.log("Column 2 = " + playerChoices.column2.join(""));
+            console.log("Diagonal Sec = " + playerChoices.diagonalSec.join(""));
+            console.log("Diagonal Main = " + playerChoices.diagonalMain.join(""));
+        } else {
+            playerChoices.column3.splice(boxId - 5, 0, userOption);
+            playerChoices.row2.splice(boxId - 4, 0, userOption);
+            console.log("Column 3 = " + playerChoices.column3.join(""));
+            console.log("Row 2 = " + playerChoices.row2.join(""));
+        };
     } else {
-        playerChoices.row3.splice(boxId - 7, 0, userOption);
-        console.log("Row 3 = " + playerChoices.row3.join(""));
+        if (boxId === "7") {
+            playerChoices.column1.splice(boxId - 6, 0, userOption);
+            playerChoices.row3.splice(boxId - 7, 0, userOption);
+            playerChoices.diagonalSec.splice(boxId - 5, 0, userOption);
+            console.log("Row 3 = " + playerChoices.row3.join(""));
+            console.log("Column 1 = " + playerChoices.column1.join(""));
+            console.log("Diagonal Sec = " + playerChoices.diagonalSec.join(""));
+        } else if (boxId === "8") {
+            playerChoices.column2.splice(boxId - 6, 0, userOption);
+            playerChoices.row3.splice(boxId - 7, 0, userOption);
+            console.log("Row 3 = " + playerChoices.row3.join(""));
+            console.log("Column 2 = " + playerChoices.column2.join(""));
+        } else {
+            playerChoices.column3.splice(boxId - 7, 0, userOption);
+            playerChoices.row3.splice(boxId - 7, 0, userOption);
+            playerChoices.diagonalMain.splice(boxId - 7, 0, userOption);
+            console.log("Row 3 = " + playerChoices.row3.join(""));
+            console.log("Column 3 = " + playerChoices.column3.join(""));
+            console.log("Diagonal Main = " + playerChoices.diagonalMain.join(""));
+        };
+    };
+
+    if (playerChoices.row1.join("") === "XXX") {
+        console.log("player 1 wins");
     };
 };
