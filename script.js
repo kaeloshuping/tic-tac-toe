@@ -146,7 +146,23 @@ function checkBoard (playerChoices, boxId, userOption) {
         };
     };
 
-    if (playerChoices.row1.join("") === "XXX") {
+    if (playerChoices.row1.join("") === "XXX" || playerChoices.row2.join("") === "XXX" 
+        || playerChoices.row3.join("") === "XXX") {
         console.log("player 1 wins");
+    } else if (playerChoices.row1.join("") === "OOO" || playerChoices.row2.join("") === "OOO" 
+        || playerChoices.row3.join("") === "OOO") {
+        console.log("player 2 wins");
+    } else if (playerChoices.column1.join("") === "XXX" || playerChoices.column2.join("") === "XXX" 
+        || playerChoices.column3.join("") === "XXX") {
+        console.log("player 1 wins again");
+    } else if (playerChoices.column1.join("") === "OOO" || playerChoices.column2.join("") === "OOO" 
+        || playerChoices.column3.join("") === "OOO") {
+        console.log("player 2 wins again");
+    } else if (playerChoices.diagonalMain.join("") === "XXX" 
+        || playerChoices.diagonalSec.join("") === "XXX") {
+        console.log("player 1 wins again and again");
+    } else if (playerChoices.diagonalMain.join("") === "OOO" 
+        || playerChoices.diagonalSec.join("") === "OOO") {
+        console.log("player 2 wins again and again");
     };
 };
