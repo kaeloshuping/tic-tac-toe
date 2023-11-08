@@ -33,8 +33,8 @@ const displayController = (() => {
         diagonalMain: [],
         diagonalSec: [],
     };
+    let playersNodeList = document.querySelectorAll(".players");
     playBtn.addEventListener("click", () => {
-        let playersNodeList = document.querySelectorAll(".players");
         players = players(playersNodeList);
         playerOneOption = players.playersOptions[0];
         playerTwoOption = players.playersOptions[1];
@@ -51,12 +51,12 @@ const displayController = (() => {
             else if (playerOneTurn === true) {
                 div.innerHTML = playerOneOption;
                 console.log(playerOneOption + div.id);
-                checkBoard(playerChoices, div.id, playerOneOption);
+                checkBoard(playerChoices, div.id, playerOneOption, playersNodeList);
                 playerOneTurn = false;
             } else {
                 div.innerHTML = playerTwoOption;
                 console.log(playerTwoOption + div.id);
-                checkBoard(playerChoices, div.id, playerTwoOption);
+                checkBoard(playerChoices, div.id, playerTwoOption, playersNodeList);
                 playerOneTurn = true;
             };            
         });
@@ -70,8 +70,10 @@ function players (playersArray) {
     return { player1, player2, playersOptions };
 };
 
-function checkBoard (playerChoices, boxId, userOption) {
+function checkBoard (playerChoices, boxId, userOption, players) {
     // playerChoices["row" + boxId].splice(boxId - 1, 0, userOption);
+    let winnerText = document.getElementById("winner-text");
+    let mainContainer = document.getElementById("main-container");
     if (boxId === "1" || boxId === "2" || boxId === "3") {
         if (boxId === "1") {
             playerChoices.column1.splice(boxId - 1, 0, userOption);
@@ -148,21 +150,21 @@ function checkBoard (playerChoices, boxId, userOption) {
 
     if (playerChoices.row1.join("") === "XXX" || playerChoices.row2.join("") === "XXX" 
         || playerChoices.row3.join("") === "XXX") {
-        console.log("player 1 wins");
+        winnerText.innerHTML = players[0].value + " wins!!!";
     } else if (playerChoices.row1.join("") === "OOO" || playerChoices.row2.join("") === "OOO" 
         || playerChoices.row3.join("") === "OOO") {
-        console.log("player 2 wins");
+        winnerText.innerHTML = players[1].value + " wins!!!";
     } else if (playerChoices.column1.join("") === "XXX" || playerChoices.column2.join("") === "XXX" 
         || playerChoices.column3.join("") === "XXX") {
-        console.log("player 1 wins again");
+        winnerText.innerHTML = players[0].value + " wins!!!";
     } else if (playerChoices.column1.join("") === "OOO" || playerChoices.column2.join("") === "OOO" 
         || playerChoices.column3.join("") === "OOO") {
-        console.log("player 2 wins again");
+        winnerText.innerHTML = players[1].value + " wins!!!";
     } else if (playerChoices.diagonalMain.join("") === "XXX" 
         || playerChoices.diagonalSec.join("") === "XXX") {
-        console.log("player 1 wins again and again");
+        winnerText.innerHTML = players[0].value + " wins!!!";
     } else if (playerChoices.diagonalMain.join("") === "OOO" 
         || playerChoices.diagonalSec.join("") === "OOO") {
-        console.log("player 2 wins again and again");
+        winnerText.innerHTML = players[1].value + " wins!!!";
     };
 };
