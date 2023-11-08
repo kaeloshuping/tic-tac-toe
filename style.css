@@ -74,6 +74,13 @@ html, body {
     color: rgb(26, 62, 90);
 }
 
+#winner-text {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 1em;
+    color: rgb(30, 214, 43);
+}
+
 ul {
     display: flex;
     justify-content: center;
