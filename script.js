@@ -34,14 +34,25 @@ const displayController = (() => {
         diagonalSec: [],
     };
     let playersNodeList = document.querySelectorAll(".players");
-    playBtn.addEventListener("click", () => {
+    let player1Div = document.getElementById("player-1-name");
+    let player2Div = document.getElementById("player-2-name");
+    let headerSubContainer = document.getElementById("game-header-sub-container");
+    playBtn.addEventListener("click", () => {  
         players = players(playersNodeList);
         playerOneOption = players.playersOptions[0];
         playerTwoOption = players.playersOptions[1];
         playerOneTurn = true;
+        console.log(players.player1);
+        console.log(players.player2);
+        if (players.player1 !== "" || players.player2 !== "") {
+            player1Div.innerHTML = players.player1;
+            player2Div.innerHTML = players.player2;
+            headerSubContainer.style.display = "flex";
+            form.style.display = "none";         
+        };
         form.addEventListener("submit", (event) => {
             event.preventDefault();
-        });
+        });        
     })
     optionBox.forEach((div) => {
         div.addEventListener("click", () => {
@@ -51,12 +62,12 @@ const displayController = (() => {
             else if (playerOneTurn === true) {
                 div.innerHTML = playerOneOption;
                 console.log(playerOneOption + div.id);
-                checkBoard(playerChoices, div.id, playerOneOption, playersNodeList);
+                checkBoard(playerChoices, div.id, playerOneOption);
                 playerOneTurn = false;
             } else {
                 div.innerHTML = playerTwoOption;
                 console.log(playerTwoOption + div.id);
-                checkBoard(playerChoices, div.id, playerTwoOption, playersNodeList);
+                checkBoard(playerChoices, div.id, playerTwoOption);
                 playerOneTurn = true;
             };            
         });
@@ -64,16 +75,16 @@ const displayController = (() => {
 })();
 
 function players (playersArray) {
-    let player1 = playersArray[0].value;
-    let player2 = playersArray[1].value;
+    let player1 = playersArray[0].value.toUpperCase();
+    let player2 = playersArray[1].value.toUpperCase();
     let playersOptions = ["X", "O"];
     return { player1, player2, playersOptions };
 };
 
-function checkBoard (playerChoices, boxId, userOption, players) {
+function checkBoard (playerChoices, boxId, userOption) {
     // playerChoices["row" + boxId].splice(boxId - 1, 0, userOption);
     let winnerText = document.getElementById("winner-text");
-    let mainContainer = document.getElementById("main-container");
+    // let mainContainer = document.getElementById("main-container");
     if (boxId === "1" || boxId === "2" || boxId === "3") {
         if (boxId === "1") {
             playerChoices.column1.splice(boxId - 1, 0, userOption);
@@ -150,21 +161,21 @@ function checkBoard (playerChoices, boxId, userOption, players) {
 
     if (playerChoices.row1.join("") === "XXX" || playerChoices.row2.join("") === "XXX" 
         || playerChoices.row3.join("") === "XXX") {
-        winnerText.innerHTML = players[0].value + " wins!!!";
+        winnerText.innerHTML = players.player1 + " wins!!!";
     } else if (playerChoices.row1.join("") === "OOO" || playerChoices.row2.join("") === "OOO" 
         || playerChoices.row3.join("") === "OOO") {
-        winnerText.innerHTML = players[1].value + " wins!!!";
+        winnerText.innerHTML = players.player2 + " wins!!!";
     } else if (playerChoices.column1.join("") === "XXX" || playerChoices.column2.join("") === "XXX" 
         || playerChoices.column3.join("") === "XXX") {
-        winnerText.innerHTML = players[0].value + " wins!!!";
+        winnerText.innerHTML = players.player1 + " wins!!!";
     } else if (playerChoices.column1.join("") === "OOO" || playerChoices.column2.join("") === "OOO" 
         || playerChoices.column3.join("") === "OOO") {
-        winnerText.innerHTML = players[1].value + " wins!!!";
+        winnerText.innerHTML = players.player2 + " wins!!!";
     } else if (playerChoices.diagonalMain.join("") === "XXX" 
         || playerChoices.diagonalSec.join("") === "XXX") {
-        winnerText.innerHTML = players[0].value + " wins!!!";
+        winnerText.innerHTML = players.player1 + " wins!!!";
     } else if (playerChoices.diagonalMain.join("") === "OOO" 
         || playerChoices.diagonalSec.join("") === "OOO") {
-        winnerText.innerHTML = players[1].value + " wins!!!";
+        winnerText.innerHTML = players.player2 + " wins!!!";
     };
 };
