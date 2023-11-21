@@ -33,22 +33,26 @@ const displayController = (() => {
         diagonalMain: [],
         diagonalSec: [],
     };
-    let playersNodeList = document.querySelectorAll(".players");
+    
     let player1Div = document.getElementById("player-1-name");
     let player2Div = document.getElementById("player-2-name");
     let headerSubContainer = document.getElementById("game-header-sub-container");
     playBtn.addEventListener("click", () => {  
+        let playersNodeList = document.querySelectorAll(".players");
         players = players(playersNodeList);
         playerOneOption = players.playersOptions[0];
         playerTwoOption = players.playersOptions[1];
         playerOneTurn = true;
         console.log(players.player1);
         console.log(players.player2);
-        if (players.player1 !== "" || players.player2 !== "") {
+        if (players.player1 !== "" && players.player2 !== "") {
             player1Div.innerHTML = players.player1;
             player2Div.innerHTML = players.player2;
+            playerOneOption = players.playersOptions[0];
+            playerTwoOption = players.playersOptions[1];
+            playerOneTurn = true;
             headerSubContainer.style.display = "flex";
-            form.style.display = "none";         
+            form.style.display = "none";       
         };
         form.addEventListener("submit", (event) => {
             event.preventDefault();
@@ -82,9 +86,7 @@ function players (playersArray) {
 };
 
 function checkBoard (playerChoices, boxId, userOption) {
-    // playerChoices["row" + boxId].splice(boxId - 1, 0, userOption);
     let winnerText = document.getElementById("winner-text");
-    // let mainContainer = document.getElementById("main-container");
     if (boxId === "1" || boxId === "2" || boxId === "3") {
         if (boxId === "1") {
             playerChoices.column1.splice(boxId - 1, 0, userOption);
